@@ -2,7 +2,8 @@ import os
 from flask import Flask, request, jsonify
 import numpy as np
 import tensorflow as tf
-from keras.preprocessing.image import img_to_array
+# from keras.preprocessing.image import img_to_array
+from tensorflow.keras.utils import img_to_array
 from keras.models import load_model
 import cv2
 
