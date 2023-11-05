@@ -1,5 +1,6 @@
 import os
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import numpy as np
 import tensorflow as tf
 # from keras.preprocessing.image import img_to_array
@@ -32,6 +33,7 @@ def predict_image(model, img):
 
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/', methods=['GET'])
 def home():
@@ -40,7 +42,7 @@ def home():
         "data": {
             "health": "status ok",
         },
-        "msg": "Health Check Successfull"
+        "msg": "Health Check Successful"
     })
 
 @app.route('/predict', methods=['POST'])
