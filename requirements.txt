@@ -3,3 +3,4 @@ requests
 jsonify
 tensorflow-cpu
 opencv-python
+flask-cors
