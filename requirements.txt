@@ -1,5 +1,5 @@
 Flask
 requests
 jsonify
-tensorflow
+tensorflow-cpu
 opencv-python
