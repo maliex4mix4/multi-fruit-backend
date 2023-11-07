@@ -4,7 +4,7 @@ from flask_cors import CORS
 import numpy as np
 import tensorflow as tf
 # from keras.preprocessing.image import img_to_array
-from tensorflow.keras.utils import img_to_array
+from tensorflow.keras.utils import img_to_array # In prod env, the img_to_array for keras runs into some error
 from keras.models import load_model
 import cv2
 
@@ -14,21 +14,27 @@ model = load_model('fruit_model.h5')
 
 def preprocess_image(img):
     
-    img_array = cv2.resize(img, (100, 100)).reshape(-1, 100, 100, 3)/255
-    return img_array
+    return cv2.resize(img, (100, 100)).reshape(-1, 100, 100, 3)/255
 
 
 def predict_image(model, img):
-    # Save the image to disk
-    img.save('temp.jpg')
-    # Read the image from disk using cv2.imread()
-    img = cv2.imread('temp.jpg')
+
+    # # Save the image to disk
+    # img.save('temp.jpg')
+    # # Read the image from disk using cv2.imread()
+    # img = cv2.imread('temp.jpg')
+
+    #  Code optimization for memory efficiency when reading in files
+    img = cv2.imdecode(np.fromstring(img.read(), np.uint8), cv2.IMREAD_COLOR)
+
     preprocessed_image = preprocess_image(img)
     predictions = model.predict(preprocessed_image)
     predicted_class = np.argmax(predictions[0])
     confidence = round(100 * (np.max(predictions[0])), 2)
-    # Delete the temporary file
-    os.remove('temp.jpg')
+
+    # # Delete the temporary file
+    # os.remove('temp.jpg')
+
     return predicted_class, confidence
 
 
