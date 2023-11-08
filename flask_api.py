@@ -3,8 +3,8 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import numpy as np
 import tensorflow as tf
-# from keras.preprocessing.image import img_to_array
-from tensorflow.keras.utils import img_to_array # In prod env, the img_to_array for keras runs into some error
+from keras.preprocessing.image import img_to_array
+# from tensorflow.keras.utils import img_to_array # In prod env, the img_to_array for keras runs into some error
 from keras.models import load_model
 import cv2
 
@@ -77,5 +77,5 @@ def predict():
 
 
 if __name__ == '__main__':
-    # app.run(debug=True)
-    app.run(host='0.0.0.0', port=80)
+    app.run(debug=True)
+    # app.run(host='0.0.0.0', port=80)
